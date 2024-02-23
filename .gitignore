@@ -1,7 +1,7 @@
 # Exclude everything
 /*
 
-# Except for default project files
+# Include default project files
 !/.github
 !/build-aux
 !/cmake
@@ -24,3 +24,7 @@
 
 # Exclude CMake build number cache
 /cmake/.CMakeBuildNumber
+
+# Inlucde .vscode config
+!/.vscode
+!/temp-build-arch.sh

@@ -1,0 +1,13 @@
+{
+    "configurations": [
+        {
+            "name": "Linux",
+            "includePath": [
+                "${workspaceFolder}/**",
+                "/usr/include/obs"
+            ],
+            "defines": []
+        }
+    ],
+    "version": 4
+}
