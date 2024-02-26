@@ -1,0 +1,11 @@
+{
+  "configurations": [
+    {
+      "name": "Win32",
+      "includePath": ["${workspaceFolder}/**", "D:\\Install\\Qt\\**"],
+      "defines": ["_DEBUG", "UNICODE", "_UNICODE"],
+      "windowsSdkVersion": "10.0.22621.0"
+    }
+  ],
+  "version": 4
+}
