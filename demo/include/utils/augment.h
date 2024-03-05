@@ -12,13 +12,4 @@ void letterbox(const cv::Mat& image,
     int stride = 32
 );
 
-
-cv::Mat scale_image(const cv::Mat& resized_mask, const cv::Size& im0_shape, const std::pair<float,
-    cv::Point2f>& ratio_pad = std::make_pair(-1.0f, cv::Point2f(-1.0f, -1.0f)));
-
-void scale_image2(
-    cv::Mat& scaled_mask, const cv::Mat& resized_mask, const cv::Size& im0_shape,
-    const std::pair<float, cv::Point2f>& ratio_pad = std::make_pair(-1.0f, cv::Point2f(-1.0f, -1.0f))
-);
-
 #endif // UTILS_AUGMENT_H

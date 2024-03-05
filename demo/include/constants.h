@@ -3,6 +3,10 @@
 
 #include <string>
 
+#define ORT_VERBOSE false
+#define DEBUG_INFO false
+#define TIMING_INFO true
+
 namespace MetadataConstants {
     inline const std::string IMGSZ = "imgsz";
     inline const std::string STRIDE = "stride";
@@ -23,6 +27,11 @@ namespace OnnxProviders {
 namespace OnnxInitializers {
     inline const int UNINITIALIZED_STRIDE = -1;
     inline const int UNINITIALIZED_NC = -1;
+}
+
+namespace Utils {
+    // Padding value when letterbox changes image size ratio
+    inline const int DEFAULT_LETTERBOX_PAD_VALUE = 114;
 }
 
 #endif // INCL_CONSTANTS_H
