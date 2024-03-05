@@ -1,4 +1,6 @@
-#pragma once
+#ifndef INCL_CONSTANTS_H
+#define INCL_CONSTANTS_H
+
 #include <string>
 
 namespace MetadataConstants {
@@ -18,17 +20,9 @@ namespace OnnxProviders {
     inline const std::string CUDA = "cuda";
 }
 
-namespace OnnxInitializers
-{
+namespace OnnxInitializers {
     inline const int UNINITIALIZED_STRIDE = -1;
     inline const int UNINITIALIZED_NC = -1;
 }
 
-
-namespace YoloTasks
-{
-    inline const std::string SEGMENT = "segment";
-    inline const std::string DETECT = "detect";
-    inline const std::string POSE = "pose";
-    inline const std::string CLASSIFY = "classify";
-}
+#endif // INCL_CONSTANTS_H

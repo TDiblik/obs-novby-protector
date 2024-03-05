@@ -1,4 +1,6 @@
-#pragma once
+#ifndef NN_AUTOBACKEND_H
+#define NN_AUTOBACKEND_H
+
 #include <filesystem>
 #include <vector>
 #include <unordered_map>
@@ -73,7 +75,7 @@ public:
     virtual void postprocess_detects(cv::Mat& output0, ImageInfo image_info, std::vector<YoloResults>& output,
         int& class_names_num, float& conf_threshold, float& iou_threshold);
     virtual void postprocess_kpts(cv::Mat& output0, ImageInfo& image_info, std::vector<YoloResults>& output,
-                                  int& class_names_num, float& conf_threshold, float& iou_threshold);
+        int& class_names_num, float& conf_threshold, float& iou_threshold);
     static void _get_mask2(const cv::Mat& mask_info, const cv::Mat& mask_data, const ImageInfo& image_info, cv::Rect bound, cv::Mat& mask_out,
         float& mask_thresh, int& iw, int& ih, int& mw, int& mh, int& masks_features_num, bool round_downsampled = false);
 
@@ -88,3 +90,5 @@ protected:
     std::string task_;
     //cv::MatSize cvMatSize_;
 };
+
+#endif // NN_AUTOBACKEND_H

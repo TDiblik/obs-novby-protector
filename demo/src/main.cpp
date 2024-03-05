@@ -305,37 +305,31 @@ void plot_results(cv::Mat img, std::vector<YoloResults>& results,
 
     // Combine the image and mask
     addWeighted(img, 0.6, mask, 0.4, 0, img);
-    //    resize(img, img, img.size());
-    //    resize(img, img, shape);
-    //    // Show the image
-    //    imshow("img", img);
-    //    cv::waitKey();
 }
 
 
 
-int main()
-{
-    std::string img_path = "./000000000382.jpg";
-    //const std::img_path& modelPath = "./checkpoints/yolov8n.onnx"; // detection
-    // vs:
-    //    const std::string& modelPath = "./checkpoints/yolov8n-seg.onnx"; // instance segmentation
-    // clion:
-    const std::string& modelPath = "./nudenet-best.onnx"; // pose
+int main(int argc, char** argv) {
+    const std::string& modelPath = "./nudenet-best.onnx";
+
+    if (argc != 2) {
+        std::cout << "You have pass an image path as an argument" << std::endl;
+        return 1;
+    }
+    std::string img_path = argv[1];
+    if (!fs::exists(img_path)) {
+        std::cout << "Specified image path does not exist" << std::endl;
+        return 1;
+    }
 
     fs::path imageFilePath(img_path);
-    fs::path newFilePath = imageFilePath.stem();
-    newFilePath += "-kpt-cpp";
-    newFilePath += imageFilePath.extension();
-    assert(newFilePath != imageFilePath);
-    std::cout << "newFilePath: " << newFilePath << std::endl;
-
     const std::string& onnx_provider = OnnxProviders::CPU; // "cpu";
-    const std::string& onnx_logid = "yolov8_inference2";
+    const std::string& onnx_logid = "abc";
     float mask_threshold = 0.5f;  // in python it's 0.5 and you can see that at ultralytics/utils/ops.process_mask line 705 (ultralytics.__version__ == .160)
     float conf_threshold = 0.30f;
     float iou_threshold = 0.45f;  //  0.70f;
     int conversion_code = cv::COLOR_BGR2RGB;
+
     cv::Mat img = cv::imread(img_path, cv::IMREAD_UNCHANGED);
     if (img.empty()) {
         std::cerr << "Error: Unable to load image" << std::endl;

@@ -1,4 +1,6 @@
-#pragma once
+#ifndef NN_ONNX_MODEL_BASE_H
+#define NN_ONNX_MODEL_BASE_H
+
 #include <onnxruntime_cxx_api.h>
 #include <string>
 #include <unordered_map>
@@ -37,3 +39,5 @@ protected:
     std::vector<const char*> outputNamesCStr;
     std::vector<const char*> inputNamesCStr;
 };
+
+#endif // NN_ONNX_MODEL_BASE_H
