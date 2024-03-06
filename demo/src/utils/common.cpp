@@ -1,19 +1,17 @@
 ﻿#define _SILENCE_CXX17_CODECVT_HEADER_DEPRECATION_WARNING
 
+#include "utils/common.h"
+
 #include <string>
 #include <sstream>
 #include <codecvt>
-#include "utils/common.h"
-
 #include <chrono>
-
 #include <iostream>
 #include <stdio.h>
-
 #include <string>
-
 #include <regex>
 #include <vector>
+#include <onnxruntime_c_api.h>
 
 #if TIMING_INFO
 Timer::Timer(double& accumulator, bool isEnabled)
@@ -33,12 +31,11 @@ void Timer::Stop() {
 }
 #endif
 
-// С++ 14 version
-std::wstring get_win_path(const std::string& modelPath) {
+const ORTCHAR_T* get_ort_path(const char* modelPath) {
 #ifdef _WIN32
-    return std::wstring_convert<std::codecvt_utf8<wchar_t>>().from_bytes(modelPath);
+    return std::wstring_convert<std::codecvt_utf8<wchar_t>>().from_bytes(modelPath).c_str();
 #else
-    return std::wstring(modelPath.begin(), modelPath.end());
+    return modelPath;
 #endif
 }
 

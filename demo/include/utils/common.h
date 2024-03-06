@@ -5,6 +5,7 @@
 #include <string>
 #include <unordered_map>
 #include <vector>
+#include <onnxruntime_c_api.h>
 
 #include "constants.h"
 
@@ -21,7 +22,7 @@ private:
 };
 #endif
 
-std::wstring get_win_path(const std::string& path);
+const ORTCHAR_T* get_ort_path(const char* modelPath);
 
 // Main purpose of this function is to parse `imgsz` key value of model metadata. Expected input: something like [544, 960] or [3,544, 960]
 std::vector<int> parse_imgsz_from_metadata(const std::string& input);

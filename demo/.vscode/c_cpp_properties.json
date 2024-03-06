@@ -1,8 +1,18 @@
 {
   "configurations": [
     {
-      "name": "Win32",
-      "includePath": ["${workspaceFolder}/**", "C:/Program Files/onnxruntime/**", "C:/opencv/**"], //todo: include linux paths
+      "name": "Main",
+      "includePath": [
+        "${workspaceFolder}/**",
+
+        // onnx
+        "C:/Program Files/onnxruntime-win-x64-1.17.1/**",
+        "/usr/local/share/onnxruntime-linux-x64-1.17.1/**",
+
+        // opencv
+        "C:/opencv-4.9.0/**",
+        "/usr/local/share/opencv-4.9.0/**"
+      ],
       "defines": ["_DEBUG", "UNICODE", "_UNICODE"],
       "windowsSdkVersion": "10.0.22621.0"
     }

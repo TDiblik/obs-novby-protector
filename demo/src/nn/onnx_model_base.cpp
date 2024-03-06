@@ -47,8 +47,11 @@ OnnxModelBase::OnnxModelBase(const char* modelPath, const char* logid, const cha
         }
     }
 
-    auto modelPathW = get_win_path(modelPath);
-    session = Ort::Session(env, modelPathW.c_str(), session_options);
+    auto model_path_w = get_ort_path(modelPath);
+#if DEBUG_INFO
+    std::cout << "Model path: " << model_path_w << std::endl;
+#endif
+    session = Ort::Session(env, model_path_w, session_options);
 
     // ----------------
     // init input names

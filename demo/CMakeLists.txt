@@ -6,18 +6,17 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_BUILD_TYPE Release)
 
 set(AIModelPath ${PROJECT_SOURCE_DIR}/../nudenet-best.onnx)
+set(OpenCV_RELEASE_DLL_FILENAME opencv_world490.dll)
 
-set(OpenCV_DIR C:/opencv/build/x64/vc16/lib)  # opencv lib root
-set(OpenCV_BIN_DIR C:/opencv/build/x64/vc16/bin)  #opencv bin root
-
-set(OpenCV_DIR C:/opencv/build/x64/vc16/lib)  # opencv lib root
-set(OpenCV_BIN_DIR C:/opencv/build/x64/vc16/bin)  #opencv bin root
-
-set(OpenCV_DEBUG_DLL_FILENAME opencv_world490d.dll)  # change filenames
-set(OpenCV_RELEASE_DLL_FILENAME opencv_world490.dll)  # change filenames
-
-# SET (ONNXRUNTIME_DIR your/path/to/onnxruntime-win-x64-1.15.1)  # onnxruntime root
-set(ONNXRUNTIME_DIR "C:/Program Files/onnxruntime")  # onnxruntime root
+if (WIN32)
+        set(OpenCV_DIR C:/opencv/build/x64/vc16/lib)      # opencv lib root
+        set(OpenCV_BIN_DIR C:/opencv/build/x64/vc16/bin)  # opencv bin root
+        set(ONNXRUNTIME_DIR "C:/Program Files/onnxruntime-win-x64-1.17.1")  # onnxruntime root
+else ()
+        set(OpenCV_DIR /usr/lib)      # opencv lib root
+        set(OpenCV_BIN_DIR /usr/bin)  # opencv bin root
+        set(ONNXRUNTIME_DIR /usr/local/share/onnxruntime-linux-x64-1.17.1/)  # onnxruntime root
+endif ()
 
 find_package(OpenCV REQUIRED)
 
@@ -42,10 +41,9 @@ if (WIN32)
             "${OpenCV_BIN_DIR}/${OpenCV_RELEASE_DLL_FILENAME}"
             "$<TARGET_FILE_DIR:NudeNetCPPDemo>"
             )
-endif(WIN32)
-if (UNIX)
+else ()
     target_link_libraries(NudeNetCPPDemo "${ONNXRUNTIME_DIR}/lib/libonnxruntime.so")
-endif(UNIX)
+endif ()
 
 # copy the nudenet model
 add_custom_command(TARGET NudeNetCPPDemo POST_BUILD

@@ -8,3 +8,6 @@ References I totally want to link:
 Stuff I want to mention:
 
 - Since I used a lot of code from https://github.com/FourierMourier/yolov8-onnx-cpp, I'll keep the same license for this directory.
+- How to setup libraries (where to put opencv/onnx,...)
+
+sudo rm -rf build/ && sudo mkdir build && cd build && sudo cmake .. && sudo make -j12
