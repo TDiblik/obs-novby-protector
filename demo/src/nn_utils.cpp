@@ -10,7 +10,6 @@
 #include <vector>
 #include <string>
 #include <sstream>
-#include <codecvt>
 #include <iostream>
 #include <regex>
 #include <onnxruntime_c_api.h>
@@ -277,14 +276,6 @@ void Timer::Stop() {
     }
 }
 #endif
-
-const ORTCHAR_T* get_ort_path(const char* modelPath) {
-#ifdef _WIN32
-    return std::wstring_convert<std::codecvt_utf8<wchar_t>>().from_bytes(modelPath).c_str();
-#else
-    return modelPath;
-#endif
-}
 
 std::vector<int> parse_imgsz_from_metadata(const std::string& input) {
     std::regex number_pattern(R"(\d+)");

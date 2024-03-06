@@ -1,6 +1,7 @@
 #include "nn/onnx_model_base.h"
 
 #include <iostream>
+#include <codecvt>
 #include <onnxruntime_cxx_api.h>
 #include <onnxruntime_c_api.h>
 
@@ -47,11 +48,13 @@ OnnxModelBase::OnnxModelBase(const char* modelPath, const char* logid, const cha
         }
     }
 
-    auto model_path_w = get_ort_path(modelPath);
-#if DEBUG_INFO
-    std::cout << "Model path: " << model_path_w << std::endl;
+#ifdef _WIN32
+    auto model_path_w = std::wstring_convert<std::codecvt_utf8<wchar_t>>().from_bytes(modelPath);
+    auto model_path_processed = model_path_w.c_str();
+#else
+    auto model_path_processed = modelPath;
 #endif
-    session = Ort::Session(env, model_path_w, session_options);
+    session = Ort::Session(env, model_path_processed, session_options);
 
     // ----------------
     // init input names

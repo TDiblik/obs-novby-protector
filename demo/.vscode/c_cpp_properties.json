@@ -10,7 +10,7 @@
         "/usr/local/share/onnxruntime-linux-x64-1.17.1/**",
 
         // opencv
-        "C:/opencv-4.9.0/**",
+        "C:/Program Files/opencv-4.9.0/**",
         "/usr/local/share/opencv-4.9.0/**"
       ],
       "defines": ["_DEBUG", "UNICODE", "_UNICODE"],

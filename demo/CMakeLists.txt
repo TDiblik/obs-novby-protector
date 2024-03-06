@@ -9,9 +9,9 @@ set(AIModelPath ${PROJECT_SOURCE_DIR}/../nudenet-best.onnx)
 set(OpenCV_RELEASE_DLL_FILENAME opencv_world490.dll)
 
 if (WIN32)
-        set(OpenCV_DIR C:/opencv-4.9.0/build/x64/vc16/lib)      # opencv lib root
-        set(OpenCV_BIN_DIR C:/opencv-4.9.0/build/x64/vc16/bin)  # opencv bin root
-        set(ONNXRUNTIME_DIR "C:/Program Files/onnxruntime-win-x64-1.17.1")  # onnxruntime root
+        set(OpenCV_DIR "C:/Program Files/opencv-4.9.0/build/x64/vc16/lib")      # opencv lib root
+        set(OpenCV_BIN_DIR "C:/Program Files/opencv-4.9.0/build/x64/vc16/bin")  # opencv bin root
+        set(ONNXRUNTIME_DIR "C:/Program Files/onnxruntime-win-x64-1.17.1")      # onnxruntime root
 else ()
         set(OpenCV_DIR /usr/lib)      # opencv lib root
         set(OpenCV_BIN_DIR /usr/bin)  # opencv bin root
