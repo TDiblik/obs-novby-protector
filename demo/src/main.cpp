@@ -6,9 +6,8 @@
 #include <opencv2/opencv.hpp>
 #include <vector>
 
-#include "utils/augment.h"
 #include "constants.h"
-#include "utils/common.h"
+#include "utils.h"
 
 namespace fs = std::filesystem;
 

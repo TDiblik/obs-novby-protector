@@ -9,11 +9,8 @@
 #include <opencv2/imgproc.hpp>
 #include <opencv2/core/mat.hpp>
 
-#include "utils/augment.h"
 #include "constants.h"
-#include "utils/common.h"
-#include "utils/ops.h"
-#include "constants.h"
+#include "utils.h"
 
 namespace fs = std::filesystem;
 
