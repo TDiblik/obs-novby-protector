@@ -5,7 +5,7 @@
 #include <onnxruntime_c_api.h>
 
 #include "constants.h"
-#include "utils.h"
+#include "nn_utils.h"
 
 
 OnnxModelBase::OnnxModelBase(const char* modelPath, const char* logid, const char* provider)

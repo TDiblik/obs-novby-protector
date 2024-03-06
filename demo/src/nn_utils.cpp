@@ -16,7 +16,7 @@
 #include <onnxruntime_c_api.h>
 
 #include "constants.h"
-#include "utils.h"
+#include "nn_utils.h"
 
 /*
    ----------------------------
@@ -51,9 +51,7 @@ void clip_boxes(std::vector<cv::Rect_<float>>& boxes, const cv::Size& shape) {
 }
 
 // source: ultralytics/utils/ops.py scale_boxes lines 99+ (ultralytics==8.0.160)
-cv::Rect_<float> scale_boxes(const cv::Size& img1_shape, cv::Rect_<float>& box, const cv::Size& img0_shape,
-    std::pair<float, cv::Point2f> ratio_pad = std::make_pair(-1.0f, cv::Point2f(-1.0f, -1.0f)), bool padding = true) {
-
+cv::Rect_<float> scale_boxes(const cv::Size& img1_shape, cv::Rect_<float>& box, const cv::Size& img0_shape, std::pair<float, cv::Point2f> ratio_pad, bool padding) {
     float gain, pad_x, pad_y;
 
     if (ratio_pad.first < 0.0f) {

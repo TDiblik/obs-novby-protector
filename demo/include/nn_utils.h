@@ -1,5 +1,5 @@
-#ifndef UTILS_H
-#define UTILS_H
+#ifndef NN_UTILS_H
+#define NN_UTILS_H
 
 #include <chrono>
 #include <string>
@@ -85,4 +85,4 @@ std::unordered_map<int, std::string> parse_names_from_metadata(const std::string
 
 int64_t vector_product(const std::vector<int64_t>& vec);
 
-#endif // UTILS_H
+#endif // NN_UTILS_H

@@ -10,7 +10,7 @@
 #include <opencv2/core/mat.hpp>
 
 #include "constants.h"
-#include "utils.h"
+#include "nn_utils.h"
 
 namespace fs = std::filesystem;
 
