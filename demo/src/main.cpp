@@ -52,6 +52,41 @@ void plot_results(cv::Mat img, std::vector<YoloResults>& results, std::unordered
     addWeighted(img, 0.6, mask, 0.4, 0, img);
 }
 
+#if TIMING_INFO
+void benchmark(uint number_of_frames, AutoBackendOnnx& model, cv::Mat img, float conf_threshold, float iou_threshold, float mask_threshold, float conversion_code) {
+    std::cout
+        << std::endl
+        << "--------------------------------------------------------" << std::endl
+        << "--------------- Benchmarking " << number_of_frames << " frames ---------------" << std::endl
+        << "--------------------------------------------------------" << std::endl
+        << std::endl;
+
+    double time_for_completion = 0.0;
+    Timer timer = Timer(time_for_completion, true);
+
+    for (int i = 0; i < number_of_frames; i++) {
+        cv::Mat test_img = img.clone();
+        std::vector<YoloResults> objs = model.predict_once(test_img, conf_threshold, iou_threshold, mask_threshold, conversion_code);
+        std::unordered_map<int, std::string> names = model.getNames();
+        cv::cvtColor(test_img, test_img, cv::COLOR_RGB2BGR);
+        plot_results(test_img, objs, names, test_img.size());
+    }
+
+    timer.Stop();
+    time_for_completion *= 1000; // convert to ms
+    std::cout
+        << std::endl
+        << "--------------------------------------------------------" << std::endl
+        << "------------------------ RESULTS -----------------------" << std::endl
+        << "--------------------------------------------------------" << std::endl;
+    std::cout << std::fixed << std::setprecision(1);
+    std::cout
+        << std::endl
+        << "It took " << time_for_completion << "ms (" << time_for_completion / 1000 << "s) to complete " << number_of_frames << " frames." << std::endl
+        << "That's average of " << (time_for_completion / static_cast<double>(number_of_frames)) << "ms per frame." << std::endl
+        << "(this includes the TIMING_INFO overhead)" << std::endl;
+}
+#endif
 
 
 int main(int argc, char** argv) {
@@ -80,8 +115,10 @@ int main(int argc, char** argv) {
         std::cerr << "Error: Unable to load image" << std::endl;
         return 1;
     }
-
     AutoBackendOnnx model(modelPath.c_str(), onnx_logid.c_str(), onnx_provider.c_str());
+
+    // benchmark(24, model, img, conf_threshold, iou_threshold, mask_threshold, conversion_code);
+
     std::vector<YoloResults> objs = model.predict_once(img, conf_threshold, iou_threshold, mask_threshold, conversion_code);
     std::unordered_map<int, std::string> names = model.getNames();
 

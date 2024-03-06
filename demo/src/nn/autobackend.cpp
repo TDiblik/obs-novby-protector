@@ -154,11 +154,11 @@ std::vector<YoloResults> AutoBackendOnnx::predict_once(cv::Mat& image, float& co
 #if TIMING_INFO
     postprocess_timer.Stop();
 
-    std::cout << std::fixed << std::setprecision(1);
-    std::cout << "Speed (" << (preprocess_time + inference_time + postprocess_time) * 1000.0 << "ms" << "): ";
-    std::cout << (preprocess_time * 1000.0) << "ms preprocess, " << (inference_time * 1000.0) << "ms inference, ";
-    std::cout << (postprocess_time * 1000.0) << "ms postprocess ; with img shape ";
-    std::cout << "(1, " << image.channels() << ", " << preprocessed_img.rows << ", " << preprocessed_img.cols << ")" << std::endl;
+    std::cout << std::fixed << std::setprecision(1)
+        << "Speed (" << (preprocess_time + inference_time + postprocess_time) * 1000.0 << "ms" << "): "
+        << (preprocess_time * 1000.0) << "ms preprocess, " << (inference_time * 1000.0) << "ms inference, "
+        << (postprocess_time * 1000.0) << "ms postprocess ; with img shape "
+        << "(1, " << image.channels() << ", " << preprocessed_img.rows << ", " << preprocessed_img.cols << ")" << std::endl;
 #endif
 #if DEBUG_INFO
     std::cout << "image: " << preprocessed_img.rows << "x" << preprocessed_img.cols << ", " << results.size() << " object(s), shape: (1, " << image.channels() << ", " << preprocessed_img.rows << ", " << preprocessed_img.cols << ")" << std::endl;
