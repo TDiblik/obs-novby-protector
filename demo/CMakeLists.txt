@@ -13,8 +13,8 @@ if (WIN32)
         set(OpenCV_BIN_DIR "C:/Program Files/opencv-4.9.0/build/x64/vc16/bin")  # opencv bin root
         set(ONNXRUNTIME_DIR "C:/Program Files/onnxruntime-win-x64-1.17.1")      # onnxruntime root
 else ()
-        set(OpenCV_DIR /usr/lib)      # opencv lib root
-        set(OpenCV_BIN_DIR /usr/bin)  # opencv bin root
+        set(OpenCV_DIR /usr/local/share/opencv-4.9.0/build/lib)      # opencv lib root
+        set(OpenCV_BIN_DIR /usr/local/share/opencv-4.9.0/build/bin)  # opencv bin root
         set(ONNXRUNTIME_DIR /usr/local/share/onnxruntime-linux-x64-1.17.1/)  # onnxruntime root
 endif ()
 
