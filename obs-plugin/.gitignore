@@ -26,5 +26,5 @@
 /cmake/.CMakeBuildNumber
 
 # Inlucde .vscode config
-!/.vscode
+!/.vscode/c_cpp_properties.json
 !/temp-build-arch.sh

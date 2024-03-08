@@ -1,13 +1,10 @@
 {
-    "configurations": [
-        {
-            "name": "Linux",
-            "includePath": [
-                "${workspaceFolder}/**",
-                "/usr/include/obs"
-            ],
-            "defines": []
-        }
-    ],
-    "version": 4
+  "configurations": [
+    {
+      "name": "Linux",
+      "includePath": ["${workspaceFolder}/**", "/usr/include/obs", "/usr/include/qt6/**"],
+      "defines": []
+    }
+  ],
+  "version": 4
 }

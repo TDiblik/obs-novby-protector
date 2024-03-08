@@ -42,7 +42,6 @@ set(_obs_clang_c_options
     -Wno-missing-field-initializers
     -Wno-missing-prototypes
     -Wno-semicolon-before-method-body
-    -Wno-shadow
     -Wno-sign-conversion
     -Wno-strict-prototypes
     -Wno-trigraphs
@@ -54,7 +53,6 @@ set(_obs_clang_c_options
     -Wparentheses
     -Wpointer-sign
     -Wquoted-include-in-framework-header
-    -Wshadow
     -Wshorten-64-to-32
     -Wuninitialized
     -Wunreachable-code
