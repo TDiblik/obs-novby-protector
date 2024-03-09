@@ -59,7 +59,7 @@ AutoBackendOnnx::AutoBackendOnnx(const char* modelPath, const char* logid, const
 
     // post init number of classes - you can do that only and only if names_ is not empty and nc was not initialized previously
     if (nc_ == OnnxInitializers::UNINITIALIZED_NC && !names_.empty()) {
-        nc_ = names_.size();
+        nc_ = static_cast<int>(names_.size());
     }
     else {
         std::cerr << "Warning: Cannot get nc value from metadata (probably names wasn't set)" << std::endl;
@@ -106,24 +106,20 @@ std::vector<YoloResults> AutoBackendOnnx::predict_once(cv::Mat& image, float& co
     double postprocess_time = 0.0;
     Timer preprocess_timer = Timer(preprocess_time, true);
 #endif
-    float* blob = nullptr;
-    std::vector<Ort::Value> inputTensors;
-    if (conversionCode >= 0) {
-        cv::cvtColor(image, image, conversionCode);
-    }
-    std::vector<int64_t> inputTensorShape;
     cv::Mat preprocessed_img;
     cv::Size new_shape = cv::Size(getWidth(), getHeight());
-    const bool& scaleFill = false;  // false
-    const bool& auto_ = false; // true
-    letterbox(image, preprocessed_img, new_shape, cv::Scalar(), auto_, scaleFill, true, getStride());
+    letterbox(image, preprocessed_img, new_shape, false, false, true, getStride());
+
+    cv::cvtColor(preprocessed_img, preprocessed_img, conversionCode);
+
+    float* blob = nullptr;
+    std::vector<int64_t> inputTensorShape;
     _fill_blob(preprocessed_img, blob, inputTensorShape);
+
+    std::vector<Ort::Value> inputTensors;
     int64_t inputTensorSize = vector_product(inputTensorShape);
     std::vector<float> inputTensorValues(blob, blob + inputTensorSize);
-
-    Ort::MemoryInfo memoryInfo = Ort::MemoryInfo::CreateCpu(
-        OrtAllocatorType::OrtArenaAllocator, OrtMemType::OrtMemTypeDefault);
-
+    Ort::MemoryInfo memoryInfo = Ort::MemoryInfo::CreateCpu(OrtAllocatorType::OrtArenaAllocator, OrtMemType::OrtMemTypeDefault);
     inputTensors.push_back(Ort::Value::CreateTensor<float>(
         memoryInfo, inputTensorValues.data(), inputTensorSize,
         inputTensorShape.data(), inputTensorShape.size()
@@ -176,6 +172,7 @@ void AutoBackendOnnx::_postprocess_detects(cv::Mat& output0, ImageInfo image_inf
     std::vector<float> confidences;
     std::vector<cv::Rect> boxes;
     std::vector<std::vector<float>> masks;
+
     // 4 - your default number of rect parameters {x, y, w, h}
     int data_width = class_names_num + 4;
     int rows = output0.rows;

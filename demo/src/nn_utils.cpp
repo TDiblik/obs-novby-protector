@@ -198,7 +198,6 @@ void letterbox(
     const cv::Mat& image,
     cv::Mat& outImage,
     const cv::Size& newShape,
-    cv::Scalar_<double> color,
     bool auto_,
     bool scaleFill,
     bool scaleUp,
@@ -246,13 +245,52 @@ void letterbox(
     int bottom = static_cast<int>(std::round(dh + 0.1f));
     int left = static_cast<int>(std::round(dw - 0.1f));
     int right = static_cast<int>(std::round(dw + 0.1f));
-    if (color == cv::Scalar()) {
-        color = cv::Scalar(Utils::DEFAULT_LETTERBOX_PAD_VALUE, Utils::DEFAULT_LETTERBOX_PAD_VALUE, Utils::DEFAULT_LETTERBOX_PAD_VALUE);
-    }
 
-    cv::copyMakeBorder(outImage, outImage, top, bottom, left, right, cv::BORDER_CONSTANT, color);
+    cv::copyMakeBorder(outImage, outImage, top, bottom, left, right, cv::BORDER_CONSTANT, Utils::LETTERBOX_COLOR);
 }
 
+void plot_results_with_classifications(cv::Mat img, std::vector<YoloResults>& results, std::unordered_map<int, std::string>& names, bool censor) {
+    for (const auto& res : results) {
+        float left = res.bbox.x;
+        float top = res.bbox.y;
+
+        // Draw bounding box
+        rectangle(img, res.bbox, Utils::COLOR_RED, 2);
+
+        // Censor stuff inside of it
+        if (censor) {
+            rectangle(img, res.bbox, Utils::COLOR_BLACK, -1);
+        }
+
+        // Try to get the class name corresponding to the given class_idx
+        std::string class_name;
+        auto it = names.find(res.class_idx);
+        if (it != names.end()) {
+            class_name = it->second;
+        }
+        else {
+            std::cerr << "Warning: class_idx not found in names for class_idx = " << res.class_idx << std::endl;
+            class_name = std::to_string(res.class_idx);
+        }
+
+        // Create label
+        std::stringstream labelStream;
+        labelStream << class_name << " " << std::fixed << std::setprecision(2) << res.conf;
+        std::string label = labelStream.str();
+
+        cv::Size text_size = cv::getTextSize(label, cv::FONT_HERSHEY_SIMPLEX, 0.6, 2, nullptr);
+        cv::Rect rect_to_fill(left - 1, top - text_size.height - 5, text_size.width + 2, text_size.height + 5);
+        cv::Scalar text_color = cv::Scalar(255.0, 255.0, 255.0);
+        rectangle(img, rect_to_fill, Utils::COLOR_RED, -1);
+        putText(img, label, cv::Point(left - 1.5, top - 2.5), cv::FONT_HERSHEY_SIMPLEX, 0.6, text_color, 2);
+    }
+}
+
+void plot_results_fast(cv::Mat img, std::vector<YoloResults>& results) {
+    for (const auto& result : results) {
+        rectangle(img, result.bbox, Utils::COLOR_BLACK, -1);
+    }
+}
 
 /*
    ----------------------------

@@ -8,6 +8,8 @@
 #include <onnxruntime_c_api.h>
 #include <opencv2/core/types.hpp>
 #include "constants.h"
+#include "nn/onnx_model_base.h"
+#include "nn/autobackend.h"
 
 /*
    ----------------------------
@@ -51,11 +53,17 @@ non_max_suppression(const cv::Mat& output0, int class_names_num, int total_featu
 void letterbox(const cv::Mat& image,
     cv::Mat& outImage,
     const cv::Size& newShape = cv::Size(640, 640),
-    cv::Scalar_<double> color = cv::Scalar(), bool auto_ = true,
+    bool auto_ = false,
     bool scaleFill = false,
     bool scaleUp = true,
     int stride = 32
 );
+
+// Use for testing/debugging
+void plot_results_with_classifications(cv::Mat img, std::vector<YoloResults>& results, std::unordered_map<int, std::string>& names, bool censor = true);
+
+// Use for production
+void plot_results_fast(cv::Mat img, std::vector<YoloResults>& results);
 
 /*
    ----------------------------

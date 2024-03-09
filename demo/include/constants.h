@@ -2,6 +2,7 @@
 #define INCL_CONSTANTS_H
 
 #include <string>
+#include <opencv2/core.hpp>
 
 #define ORT_VERBOSE false
 #define DEBUG_INFO false
@@ -32,6 +33,9 @@ namespace OnnxInitializers {
 namespace Utils {
     // Padding value when letterbox changes image size ratio
     inline const int DEFAULT_LETTERBOX_PAD_VALUE = 114;
+    static const cv::Scalar COLOR_RED = cv::Scalar(0, 0, 255);
+    static const cv::Scalar COLOR_BLACK = cv::Scalar(0, 0, 0);
+    static const cv::Scalar_<double> LETTERBOX_COLOR = cv::Scalar(Utils::DEFAULT_LETTERBOX_PAD_VALUE, Utils::DEFAULT_LETTERBOX_PAD_VALUE, Utils::DEFAULT_LETTERBOX_PAD_VALUE);
 }
 
 #endif // INCL_CONSTANTS_H
