@@ -21,7 +21,6 @@ OnnxModelBase::OnnxModelBase(const char* modelPath, const char* logid, const cha
         ORT_LOGGING_LEVEL_ERROR,
 #endif
         logid);
-    Ort::SessionOptions session_options = Ort::SessionOptions();
 
     std::vector<std::string> availableProviders = Ort::GetAvailableProviders();
     auto cudaAvailable = std::find(availableProviders.begin(), availableProviders.end(), "CUDAExecutionProvider");
@@ -34,17 +33,20 @@ OnnxModelBase::OnnxModelBase(const char* modelPath, const char* logid, const cha
     std::cout << "]" << std::endl;
 #endif
 
-    // todo: try to get cuda working
+    Ort::SessionOptions session_options = Ort::SessionOptions();
     if (provider == OnnxProviders::CUDA.c_str()) {
         if (cudaAvailable == availableProviders.end()) {
             std::cout << "CUDA is not supported by your ONNXRuntime build. Fallback to CPU." << std::endl;
             std::cout << "Inference device: CPU" << std::endl;
         }
         else {
-            std::cout << "Appending cuda provider" << std::endl;
-            OrtTensorRTProviderOptions tensor_options = {};
-            session_options.AppendExecutionProvider_TensorRT(tensor_options);
-            std::cout << "Inference device: CUDA" << std::endl;
+            // todo: try to get cuda working
+            // std::cout << "Appending cuda provider" << std::endl;
+            // OrtTensorRTProviderOptions tensor_options = {};
+            // session_options.AppendExecutionProvider_TensorRT(tensor_options);
+            // std::cout << "Inference device: CUDA" << std::endl;
+
+            std::cout << "Haven't really implemented cuda yet lol :D" << std::endl;
         }
     }
 
