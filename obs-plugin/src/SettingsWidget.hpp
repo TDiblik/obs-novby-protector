@@ -1,5 +1,5 @@
-#ifndef TEST_H
-#define TEST_H
+#ifndef SETTINGS_WIDGET_H
+#define SETTINGS_WIDGET_H
 
 #include <QDockWidget>
 #include <QPushButton>
@@ -8,13 +8,12 @@
 #include <QMessageBox>
 
 class SettingsWidget : public QDockWidget {
-    QOBJECT_H
+    Q_OBJECT
 public:
     explicit SettingsWidget(QWidget* parent = nullptr);
     ~SettingsWidget();
 
 private:
-    void buttonClicked();
     QWidget* parent = nullptr;
     QPushButton* button = new QPushButton();
 

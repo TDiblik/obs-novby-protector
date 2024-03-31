@@ -17,11 +17,11 @@ SettingsWidget::SettingsWidget(QWidget* parent) : QDockWidget("Test plugin", par
     setFloating(true);
     resize(700, 700);
 
-    QObject::connect(button, SIGNAL(clicked()), SLOT(ButtonClicked()));
+    connect(this->button, SIGNAL(clicked()), this, SLOT(ButtonClicked()));
 }
 
 SettingsWidget::~SettingsWidget() {}
 
 void SettingsWidget::ButtonClicked() {
-    QMessageBox::information(this, "Infor", "Button pressed!");
+    obs_log(LOG_INFO, "aaa");
 }
